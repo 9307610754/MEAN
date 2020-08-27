@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="weather.js"></script>
+</head>
+
+<style>
+    html,
+    body {
+        margin-top: 5%;
+        margin-left: 5%;
+        padding: 5%;
+        background-color: grey;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        font-weight: bold;
+
+    }
+</style>
+
+<body>
+    <div>
+        <input style="color:black;" type="text" id="textid" placeholder="Cityname">
+        <button style="background-color:blue; color:white;" onclick="getWeather()">GET WEATHER</button>
+    </div>
+    <div id="parent">
+        <!-- We will display results here-->
+        <div style="color:blue;">
+            Results Here
+        </div>
+    </div>
+
+</body>
+
+</html>
+===========================================================================
+//weather.js
+
+let getWeather = function () {
+
+    let xhr = new XMLHttpRequest();
+    // document.querySelector("#textid").value;
+    let cityname = document.querySelector("#textid").value || "Mumbai";
+    let url = "https://api.openweathermap.org/data/2.5/weather?appid=09dd8345bc10f82eaf87862a7e2ab8a9&units=metric&q=";
+
+
+
+
+
+    url = url + cityname;
+    xhr.open("GET", url);
+
+    xhr.onload = () => {
+        console.log(xhr.responseText);
+        const refjson = JSON.parse(xhr.responseText);
+        domoperationForResultDisplay(refjson);
+    };
+
+    xhr.send();
+};
+
+let domoperationForResultDisplay = (refjson) => {
+    console.log(refjson);
+    const maxTemp = refjson.main.temp_max;
+    const minTemp = refjson.main.temp_min;
+    const parent = document.querySelector("#parent");
+    const newElement = parent.children[0].cloneNode(true);
+    newElement.innerHTML = 'Max' + maxTemp + ' ' + 'Min' + minTemp;
+    parent.insertBefore(newElement, parent.firstChild);
+};

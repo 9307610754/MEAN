@@ -1,0 +1,24 @@
+//window event listner
+
+window.addEventListener('load', () => {
+
+    for (let i = 0; i < 6; i++) {
+        let newElement = document.getElementById("new").cloneNode(true);
+        var middle = document.getElementById("middle");
+        middle.insertBefore(newElement, middle.firstChild);
+        middle.style.background = "royalblue";
+    }
+})
+
+
+window.addEventListener('load', () => {
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'https://reqres.in/api/users?page=2', true);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            let abc = JSON.parse(xhr.responseText);
+        }
+    };
+    xhr.send();
+})
