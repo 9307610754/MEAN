@@ -1,0 +1,31 @@
+read.demo.js=>
+
+const http = require("http")
+const mod = require("./module.js")
+http.createServer((req, res) => {
+    // CORS ENABLED
+    // res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+
+    const myresponse = JSON.stringify(mod.list);
+
+    // to send the response to the client
+    res.end(myresponse);
+})
+    .listen(5800);
+
+
+===================================================================
+module.js=>
+
+
+const list = [
+    { id: 1, day: "monday", maxTemp: 32, minTemp: 24 },
+    { id: 2, day: "tuesday", maxTemp: 30, minTemp: 26 },
+    { id: 3, day: "wednesday", maxTemp: 32, minTemp: 25 },
+    { id: 4, day: "thursday", maxTemp: 34, minTemp: 26 },
+    { id: 5, day: "friday", maxTemp: 34, minTemp: 26 },
+
+];
+
+module.exports = { list };
